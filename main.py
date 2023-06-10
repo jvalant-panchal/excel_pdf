@@ -12,11 +12,16 @@ for file in excel_files:
     pdf = FPDF(orientation="P", unit="mm", format="A4")
 
     for index, row in df.iterrows():
-        filename = Path(file).stem
-        invoice_no = filename.split("-")[0]
-        pdf.set_font(family="Times", size=14, style="B")
         pdf.add_page()
-        pdf.cell(w=50, h=8, txt= f"Invoice No.{invoice_no}")
-        pdf.output(f"PDFs/{filename}.pdf")
 
+        filename = Path(file).stem
+        invoice_no, date = filename.split("-")
+
+        pdf.set_font(family="Times", size=14, style="B")
+        pdf.cell(w=50, h=8, txt=f"Invoice No. {invoice_no}", ln=1)
+
+        pdf.set_font(family="Times", size=14, style="B")
+        pdf.cell(w=0, h=16, txt=f"Date: {date}", ln=1)
+
+        pdf.output(f"PDFs/{filename}.pdf")
 
